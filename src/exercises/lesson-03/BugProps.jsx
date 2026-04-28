@@ -11,12 +11,13 @@
 
   Use the commented "Explanation" section at the bottom of this lesson's components.
 */
+import { useState } from 'react';
 
 export default function BugProps({ name = 'friend' }) {
-  let message = 'Hello, ' + name;
+  const [message, setMessage] = useState('Hello, ' + name);
 
   function handleChange() {
-    message = 'Hi, ' + name + '!';
+    setMessage('Hi, ' + name + '!');
   }
 
   return (
@@ -28,4 +29,4 @@ export default function BugProps({ name = 'friend' }) {
 }
 
 // Explanation:
-// (Write your explanation here)
+// The issue is that when a standard variable declared inside a component changes, React does not trigger a re-render; consequently, the variable's new value is not reflected in the UI. To make this work, we need to utilize the `useState` hook once again. Furthermore, within the `handleChange` function, we must include an expression using `setMessage` so that the value of `message` is updated and React re-renders the UI to display this new value.

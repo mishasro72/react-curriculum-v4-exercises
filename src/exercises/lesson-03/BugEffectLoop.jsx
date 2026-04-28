@@ -15,10 +15,10 @@ export default function BugEffectLoop() {
 
   useEffect(() => {
     setCount(count + 1);
-  });
+  }, []);
 
   return <p>Bug 1 Count: {count}</p>;
 }
 
 // Explanation:
-// (Write your explanation here)
+// The error lies in the fact that the dependency array is missing. What actually happens is this: after the UI renders, `useEffect` runs; this triggers `setCount`, which updates the `count` state; a re-render then occurs, and `useEffect` runs again—triggering... well, you get the idea: an infinite loop. To avoid this—and ensure `useEffect` runs only once—you need to add `[]`.
