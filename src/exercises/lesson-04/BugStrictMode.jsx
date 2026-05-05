@@ -7,9 +7,13 @@ export default function BugStrictMode() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    setInterval(() => {
+    const intervalId = setInterval(() => {
       setCount((c) => c + 1);
     }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
   }, []);
 
   return (
@@ -21,3 +25,5 @@ export default function BugStrictMode() {
 }
 
 // Write your explanation of how StrictMode helps us catch this bug
+// When developing in React, you might notice useEffect running twice — this is not a bug. It happens because most starter projects wrap the app in <React.StrictMode>
+// React automatically wraps components in <React.StrictMode> when you start a new app with tools like Create React App or Vite. StrictMode helps detect unexpected side effects, memory leaks, and other issues early in development.
